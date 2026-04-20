@@ -18,60 +18,29 @@
 
             <!-- TOP: Resource Bar -->
             <Grid Grid.Row="0"
-                  BackgroundColor="#111a11"
-                  Padding="12,8"
-                  ColumnDefinitions="Auto,Auto,*,Auto">
-
-                <!-- Gold border line at bottom -->
-                <BoxView Grid.ColumnSpan="4"
-                         HeightRequest="2"
-                         Color="#7a6a3a"
-                         VerticalOptions="End" />
+                  Padding="16,12"
+                  ColumnDefinitions="*,*,*">
 
                 <!-- Gold -->
-                <Border Grid.Column="0"
-                        BackgroundColor="#2a2218"
-                        Stroke="#5a4a32"
-                        StrokeThickness="1"
-                        StrokeShape="RoundRectangle 14"
-                        Padding="10,4"
-                        Margin="0,0,8,4">
-                    <HorizontalStackLayout Spacing="6" VerticalOptions="Center">
-                        <Label Text="🪙" FontSize="16" VerticalOptions="Center" />
-                        <Label x:Name="GoldLabel" Text="1245" FontSize="14" FontAttributes="Bold"
-                               TextColor="#e8d8a0" FontFamily="OpenSansSemibold" VerticalOptions="Center" />
-                    </HorizontalStackLayout>
-                </Border>
+                <HorizontalStackLayout Grid.Column="0" Spacing="8" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Image Source="icon_gold_coin.png" WidthRequest="48" HeightRequest="48" VerticalOptions="Center" />
+                    <Label x:Name="GoldLabel" Text="1245" FontSize="18" FontAttributes="Bold"
+                           TextColor="#e8d8a0" FontFamily="OpenSansSemibold" VerticalOptions="Center" />
+                </HorizontalStackLayout>
 
-                <!-- Gems -->
-                <Border Grid.Column="1"
-                        BackgroundColor="#2a2218"
-                        Stroke="#5a4a32"
-                        StrokeThickness="1"
-                        StrokeShape="RoundRectangle 14"
-                        Padding="10,4"
-                        Margin="0,0,8,4">
-                    <HorizontalStackLayout Spacing="6" VerticalOptions="Center">
-                        <Label Text="💎" FontSize="16" VerticalOptions="Center" />
-                        <Label x:Name="GemsLabel" Text="30" FontSize="14" FontAttributes="Bold"
-                               TextColor="#88ccee" FontFamily="OpenSansSemibold" VerticalOptions="Center" />
-                    </HorizontalStackLayout>
-                </Border>
+                <!-- Experience -->
+                <HorizontalStackLayout Grid.Column="1" Spacing="8" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Image Source="icon_blue_rock.png" WidthRequest="48" HeightRequest="48" VerticalOptions="Center" />
+                    <Label x:Name="ExpLabel" Text="530" FontSize="18" FontAttributes="Bold"
+                           TextColor="#88ccee" FontFamily="OpenSansSemibold" VerticalOptions="Center" />
+                </HorizontalStackLayout>
 
-                <!-- Spacer -->
-
-                <!-- Energy / Keys -->
-                <Border Grid.Column="3"
-                        BackgroundColor="#2a2218"
-                        Stroke="#5a4a32"
-                        StrokeThickness="1"
-                        StrokeShape="RoundRectangle 14"
-                        Padding="10,4"
-                        Margin="0,0,0,4">
-                    <Label x:Name="KeysLabel" Text="2" FontSize="14" FontAttributes="Bold"
-                           TextColor="#e8d8a0" FontFamily="OpenSansSemibold"
-                           HorizontalOptions="Center" VerticalOptions="Center" />
-                </Border>
+                <!-- Special Experience -->
+                <HorizontalStackLayout Grid.Column="2" Spacing="8" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Image Source="icon_pink_rock.png" WidthRequest="48" HeightRequest="48" VerticalOptions="Center" />
+                    <Label x:Name="SpecialExpLabel" Text="12" FontSize="18" FontAttributes="Bold"
+                           TextColor="#ee88cc" FontFamily="OpenSansSemibold" VerticalOptions="Center" />
+                </HorizontalStackLayout>
             </Grid>
 
             <!-- CENTER: Scenic background area (transparent, so background shows through) -->
