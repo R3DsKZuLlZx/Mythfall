@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Mythfall.Client.Pages.HomePage"
+             BackgroundColor="#1a1a2e"
+             Title="Mythfall"
+             Shell.NavBarIsVisible="False">
+
+    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
+        <Label
+            Text="MYTHFALL"
+            FontSize="32"
+            FontAttributes="Bold"
+            TextColor="#e94560"
+            HorizontalOptions="Center"
+            FontFamily="OpenSansSemibold"
+            CharacterSpacing="4" />
+        <Label
+            Text="Home"
+            FontSize="16"
+            TextColor="#8a8a9a"
+            HorizontalOptions="Center"
+            Margin="0,10,0,0" />
+    </VerticalStackLayout>
+
+</ContentPage>
+
