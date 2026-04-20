@@ -50,73 +50,72 @@
 
             <!-- BOTTOM: Navigation Buttons -->
             <Grid Grid.Row="2"
-                  BackgroundColor="#111a11"
-                  Padding="16,12,16,24"
+                  Padding="16,0,16,24"
                   ColumnDefinitions="*,*,*"
-                  ColumnSpacing="12">
-
-                <!-- Gold border line at top -->
-                <BoxView Grid.ColumnSpan="3"
-                         HeightRequest="2"
-                         Color="#7a6a3a"
-                         VerticalOptions="Start" />
+                  ColumnSpacing="16">
 
                 <!-- Campaign -->
-                <Border Grid.Column="0"
-                        BackgroundColor="#1e2a1e"
-                        Stroke="#7a6a3a"
-                        StrokeThickness="2"
-                        StrokeShape="RoundRectangle 8"
-                        Padding="0,12"
-                        Margin="0,8,0,0">
-                    <Border.GestureRecognizers>
+                <Grid Grid.Column="0" WidthRequest="104" HeightRequest="124"
+                      HorizontalOptions="Center" VerticalOptions="End">
+                    <Grid.GestureRecognizers>
                         <TapGestureRecognizer Tapped="OnCampaignClicked" />
-                    </Border.GestureRecognizers>
-                    <VerticalStackLayout HorizontalOptions="Center" Spacing="6">
-                        <Label Text="⚔️" FontSize="36" HorizontalOptions="Center" />
-                        <Label Text="Campaign" FontSize="14" FontAttributes="Bold"
-                               TextColor="#e8b830" HorizontalOptions="Center"
-                               FontFamily="OpenSansSemibold" />
-                    </VerticalStackLayout>
-                </Border>
+                    </Grid.GestureRecognizers>
+                    <Path Data="M 2,16 Q 16,16 16,2 L 88,2 Q 88,16 102,16 L 102,88 Q 88,88 88,102 L 16,102 Q 16,88 2,88 Z"
+                          Fill="#2a4a2a" Stroke="#8B6914" StrokeThickness="4"
+                          WidthRequest="104" HeightRequest="104"
+                          HorizontalOptions="Center" VerticalOptions="End"
+                          Aspect="None" />
+                    <Label Text="Campaign" FontSize="13" FontAttributes="Bold"
+                           TextColor="#e8b830" HorizontalOptions="Center"
+                           VerticalOptions="End" Margin="0,0,0,10"
+                           FontFamily="OpenSansSemibold" />
+                    <Image Source="icon_campaign.png"
+                           WidthRequest="64" HeightRequest="64"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Start" />
+                </Grid>
 
                 <!-- Heroes -->
-                <Border Grid.Column="1"
-                        BackgroundColor="#1e2a1e"
-                        Stroke="#7a6a3a"
-                        StrokeThickness="2"
-                        StrokeShape="RoundRectangle 8"
-                        Padding="0,12"
-                        Margin="0,8,0,0">
-                    <Border.GestureRecognizers>
+                <Grid Grid.Column="1" WidthRequest="104" HeightRequest="124"
+                      HorizontalOptions="Center" VerticalOptions="End">
+                    <Grid.GestureRecognizers>
                         <TapGestureRecognizer Tapped="OnHeroesClicked" />
-                    </Border.GestureRecognizers>
-                    <VerticalStackLayout HorizontalOptions="Center" Spacing="6">
-                        <Label Text="🛡️" FontSize="36" HorizontalOptions="Center" />
-                        <Label Text="Heroes" FontSize="14" FontAttributes="Bold"
-                               TextColor="#e8b830" HorizontalOptions="Center"
-                               FontFamily="OpenSansSemibold" />
-                    </VerticalStackLayout>
-                </Border>
+                    </Grid.GestureRecognizers>
+                    <Path Data="M 2,16 Q 16,16 16,2 L 88,2 Q 88,16 102,16 L 102,88 Q 88,88 88,102 L 16,102 Q 16,88 2,88 Z"
+                          Fill="#2a4a2a" Stroke="#8B6914" StrokeThickness="4"
+                          WidthRequest="104" HeightRequest="104"
+                          HorizontalOptions="Center" VerticalOptions="End"
+                          Aspect="None" />
+                    <Label Text="Heroes" FontSize="13" FontAttributes="Bold"
+                           TextColor="#e8b830" HorizontalOptions="Center"
+                           VerticalOptions="End" Margin="0,0,0,10"
+                           FontFamily="OpenSansSemibold" />
+                    <Image Source="icon_heroes.png"
+                           WidthRequest="64" HeightRequest="64"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Start" />
+                </Grid>
 
                 <!-- Shop -->
-                <Border Grid.Column="2"
-                        BackgroundColor="#1e2a1e"
-                        Stroke="#7a6a3a"
-                        StrokeThickness="2"
-                        StrokeShape="RoundRectangle 8"
-                        Padding="0,12"
-                        Margin="0,8,0,0">
-                    <Border.GestureRecognizers>
+                <Grid Grid.Column="2" WidthRequest="104" HeightRequest="124"
+                      HorizontalOptions="Center" VerticalOptions="End">
+                    <Grid.GestureRecognizers>
                         <TapGestureRecognizer Tapped="OnShopClicked" />
-                    </Border.GestureRecognizers>
-                    <VerticalStackLayout HorizontalOptions="Center" Spacing="6">
-                        <Label Text="🏪" FontSize="36" HorizontalOptions="Center" />
-                        <Label Text="Shop" FontSize="14" FontAttributes="Bold"
-                               TextColor="#e8b830" HorizontalOptions="Center"
-                               FontFamily="OpenSansSemibold" />
-                    </VerticalStackLayout>
-                </Border>
+                    </Grid.GestureRecognizers>
+                    <Path Data="M 2,16 Q 16,16 16,2 L 88,2 Q 88,16 102,16 L 102,88 Q 88,88 88,102 L 16,102 Q 16,88 2,88 Z"
+                          Fill="#2a4a2a" Stroke="#8B6914" StrokeThickness="4"
+                          WidthRequest="104" HeightRequest="104"
+                          HorizontalOptions="Center" VerticalOptions="End"
+                          Aspect="None" />
+                    <Label Text="Shop" FontSize="13" FontAttributes="Bold"
+                           TextColor="#e8b830" HorizontalOptions="Center"
+                           VerticalOptions="End" Margin="0,0,0,10"
+                           FontFamily="OpenSansSemibold" />
+                    <Image Source="icon_shop.png"
+                           WidthRequest="64" HeightRequest="64"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Start" />
+                </Grid>
 
             </Grid>
         </Grid>
