@@ -55,66 +55,66 @@
                   ColumnSpacing="16">
 
                 <!-- Campaign -->
-                <Grid Grid.Column="0" WidthRequest="104" HeightRequest="140"
+                <Grid Grid.Column="0" WidthRequest="135" HeightRequest="182"
                       HorizontalOptions="Center" VerticalOptions="End">
                     <Grid.GestureRecognizers>
                         <TapGestureRecognizer Tapped="OnCampaignClicked" />
                     </Grid.GestureRecognizers>
-                    <Path Data="M 2,12 Q 12,12 12,2 L 92,2 Q 92,12 102,12 L 102,92 Q 92,92 92,102 L 12,102 Q 12,92 2,92 Z"
-                          Fill="#2a4a2a" Stroke="#8B6914" StrokeThickness="4"
-                          WidthRequest="104" HeightRequest="104"
+                    <Path Data="M 3,16 Q 16,16 16,3 L 119,3 Q 119,16 132,16 L 132,119 Q 119,119 119,132 L 16,132 Q 16,119 3,119 Z"
+                          Fill="#2a4a2a" Stroke="#8B6914" StrokeThickness="5"
+                          WidthRequest="135" HeightRequest="135"
                           HorizontalOptions="Center" VerticalOptions="End"
                           Aspect="None" />
-                    <Label Text="Campaign" FontSize="15" FontAttributes="Bold"
+                    <Label Text="Campaign" FontSize="20" FontAttributes="Bold"
                            TextColor="#e8b830" HorizontalOptions="Center"
-                           VerticalOptions="End" Margin="0,0,0,10"
+                           VerticalOptions="End" Margin="0,0,0,13"
                            FontFamily="OpenSansSemibold" />
                     <Image Source="icon_campaign.png"
-                           WidthRequest="96" HeightRequest="96"
+                           WidthRequest="125" HeightRequest="125"
                            HorizontalOptions="Center"
                            VerticalOptions="Start"
                            Margin="0,0,0,0" />
                 </Grid>
 
                 <!-- Heroes -->
-                <Grid Grid.Column="1" WidthRequest="104" HeightRequest="140"
+                <Grid Grid.Column="1" WidthRequest="135" HeightRequest="182"
                       HorizontalOptions="Center" VerticalOptions="End">
                     <Grid.GestureRecognizers>
                         <TapGestureRecognizer Tapped="OnHeroesClicked" />
                     </Grid.GestureRecognizers>
-                    <Path Data="M 2,12 Q 12,12 12,2 L 92,2 Q 92,12 102,12 L 102,92 Q 92,92 92,102 L 12,102 Q 12,92 2,92 Z"
-                          Fill="#2a4a2a" Stroke="#8B6914" StrokeThickness="4"
-                          WidthRequest="104" HeightRequest="104"
+                    <Path Data="M 3,16 Q 16,16 16,3 L 119,3 Q 119,16 132,16 L 132,119 Q 119,119 119,132 L 16,132 Q 16,119 3,119 Z"
+                          Fill="#2a4a2a" Stroke="#8B6914" StrokeThickness="5"
+                          WidthRequest="135" HeightRequest="135"
                           HorizontalOptions="Center" VerticalOptions="End"
                           Aspect="None" />
-                    <Label Text="Heroes" FontSize="15" FontAttributes="Bold"
+                    <Label Text="Heroes" FontSize="20" FontAttributes="Bold"
                            TextColor="#e8b830" HorizontalOptions="Center"
-                           VerticalOptions="End" Margin="0,0,0,10"
+                           VerticalOptions="End" Margin="0,0,0,13"
                            FontFamily="OpenSansSemibold" />
                     <Image Source="icon_heroes.png"
-                           WidthRequest="96" HeightRequest="96"
+                           WidthRequest="125" HeightRequest="125"
                            HorizontalOptions="Center"
                            VerticalOptions="Start"
                            Margin="0,0,0,0" />
                 </Grid>
 
                 <!-- Shop -->
-                <Grid Grid.Column="2" WidthRequest="104" HeightRequest="140"
+                <Grid Grid.Column="2" WidthRequest="135" HeightRequest="182"
                       HorizontalOptions="Center" VerticalOptions="End">
                     <Grid.GestureRecognizers>
                         <TapGestureRecognizer Tapped="OnShopClicked" />
                     </Grid.GestureRecognizers>
-                    <Path Data="M 2,12 Q 12,12 12,2 L 92,2 Q 92,12 102,12 L 102,92 Q 92,92 92,102 L 12,102 Q 12,92 2,92 Z"
-                          Fill="#2a4a2a" Stroke="#8B6914" StrokeThickness="4"
-                          WidthRequest="104" HeightRequest="104"
+                    <Path Data="M 3,16 Q 16,16 16,3 L 119,3 Q 119,16 132,16 L 132,119 Q 119,119 119,132 L 16,132 Q 16,119 3,119 Z"
+                          Fill="#2a4a2a" Stroke="#8B6914" StrokeThickness="5"
+                          WidthRequest="135" HeightRequest="135"
                           HorizontalOptions="Center" VerticalOptions="End"
                           Aspect="None" />
-                    <Label Text="Shop" FontSize="15" FontAttributes="Bold"
+                    <Label Text="Shop" FontSize="20" FontAttributes="Bold"
                            TextColor="#e8b830" HorizontalOptions="Center"
-                           VerticalOptions="End" Margin="0,0,0,10"
+                           VerticalOptions="End" Margin="0,0,0,13"
                            FontFamily="OpenSansSemibold" />
                     <Image Source="icon_shop.png"
-                           WidthRequest="96" HeightRequest="96"
+                           WidthRequest="125" HeightRequest="125"
                            HorizontalOptions="Center"
                            VerticalOptions="Start"
                            Margin="0,0,0,0" />
