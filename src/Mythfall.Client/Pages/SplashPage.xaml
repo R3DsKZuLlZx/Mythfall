@@ -6,50 +6,21 @@
              Shell.NavBarIsVisible="False">
 
     <Grid VerticalOptions="Fill" HorizontalOptions="Fill">
+        <!-- Full background splash image -->
+        <Image
+            Source="splash.png"
+            Aspect="AspectFill"
+            VerticalOptions="Fill"
+            HorizontalOptions="Fill"
+            Opacity="1"
+            ZIndex="0" />
+
         <VerticalStackLayout
             x:Name="SplashContent"
             VerticalOptions="Center"
             HorizontalOptions="Center"
             Spacing="20"
             Opacity="0">
-
-            <!-- Game Icon / Symbol -->
-            <Border
-                StrokeShape="RoundRectangle 30"
-                Stroke="#7b2ff7"
-                StrokeThickness="3"
-                BackgroundColor="#16213e"
-                HeightRequest="120"
-                WidthRequest="120"
-                HorizontalOptions="Center">
-                <Label
-                    Text="⚔"
-                    FontSize="60"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"
-                    TextColor="#e94560" />
-            </Border>
-
-            <!-- Title -->
-            <Label
-                x:Name="TitleLabel"
-                Text="MYTHFALL"
-                FontSize="42"
-                FontAttributes="Bold"
-                TextColor="#e94560"
-                HorizontalOptions="Center"
-                FontFamily="OpenSansSemibold"
-                CharacterSpacing="6" />
-
-            <!-- Subtitle -->
-            <Label
-                Text="Collect • Level • Ascend"
-                FontSize="16"
-                TextColor="#8a8a9a"
-                HorizontalOptions="Center"
-                FontFamily="OpenSansRegular"
-                CharacterSpacing="2" />
-
         </VerticalStackLayout>
 
         <!-- Loading indicator at bottom -->
@@ -79,4 +50,3 @@
     </Grid>
 
 </ContentPage>
-
