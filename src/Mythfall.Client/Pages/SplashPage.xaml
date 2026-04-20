@@ -34,7 +34,7 @@
 
             <ActivityIndicator
                 IsRunning="True"
-                Color="#7b2ff7"
+                Color="#a89878"
                 HeightRequest="30"
                 WidthRequest="30"
                 HorizontalOptions="Center" />
@@ -42,7 +42,7 @@
             <Label
                 Text="Loading..."
                 FontSize="13"
-                TextColor="#555570"
+                TextColor="#a89878"
                 HorizontalOptions="Center"
                 FontFamily="OpenSansRegular" />
 

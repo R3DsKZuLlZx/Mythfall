@@ -2,26 +2,156 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Mythfall.Client.Pages.HomePage"
-             BackgroundColor="#1a1a2e"
+             BackgroundColor="#1a2a1a"
              Title="Mythfall"
              Shell.NavBarIsVisible="False">
 
-    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
-        <Label
-            Text="MYTHFALL"
-            FontSize="32"
-            FontAttributes="Bold"
-            TextColor="#e94560"
-            HorizontalOptions="Center"
-            FontFamily="OpenSansSemibold"
-            CharacterSpacing="4" />
-        <Label
-            Text="Home"
-            FontSize="16"
-            TextColor="#8a8a9a"
-            HorizontalOptions="Center"
-            Margin="0,10,0,0" />
-    </VerticalStackLayout>
+    <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+        <!-- Full background image -->
+        <Image Source="home_background.png"
+               Aspect="AspectFill"
+               HorizontalOptions="FillAndExpand"
+               VerticalOptions="FillAndExpand" />
+
+        <!-- Overlay main content -->
+        <Grid RowDefinitions="Auto,*,Auto" VerticalOptions="FillAndExpand">
+
+            <!-- TOP: Resource Bar -->
+            <Grid Grid.Row="0"
+                  BackgroundColor="#111a11"
+                  Padding="12,8"
+                  ColumnDefinitions="Auto,Auto,*,Auto">
+
+                <!-- Gold border line at bottom -->
+                <BoxView Grid.ColumnSpan="4"
+                         HeightRequest="2"
+                         Color="#7a6a3a"
+                         VerticalOptions="End" />
+
+                <!-- Gold -->
+                <Border Grid.Column="0"
+                        BackgroundColor="#2a2218"
+                        Stroke="#5a4a32"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 14"
+                        Padding="10,4"
+                        Margin="0,0,8,4">
+                    <HorizontalStackLayout Spacing="6" VerticalOptions="Center">
+                        <Label Text="🪙" FontSize="16" VerticalOptions="Center" />
+                        <Label x:Name="GoldLabel" Text="1245" FontSize="14" FontAttributes="Bold"
+                               TextColor="#e8d8a0" FontFamily="OpenSansSemibold" VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+                </Border>
+
+                <!-- Gems -->
+                <Border Grid.Column="1"
+                        BackgroundColor="#2a2218"
+                        Stroke="#5a4a32"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 14"
+                        Padding="10,4"
+                        Margin="0,0,8,4">
+                    <HorizontalStackLayout Spacing="6" VerticalOptions="Center">
+                        <Label Text="💎" FontSize="16" VerticalOptions="Center" />
+                        <Label x:Name="GemsLabel" Text="30" FontSize="14" FontAttributes="Bold"
+                               TextColor="#88ccee" FontFamily="OpenSansSemibold" VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+                </Border>
+
+                <!-- Spacer -->
+
+                <!-- Energy / Keys -->
+                <Border Grid.Column="3"
+                        BackgroundColor="#2a2218"
+                        Stroke="#5a4a32"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 14"
+                        Padding="10,4"
+                        Margin="0,0,0,4">
+                    <Label x:Name="KeysLabel" Text="2" FontSize="14" FontAttributes="Bold"
+                           TextColor="#e8d8a0" FontFamily="OpenSansSemibold"
+                           HorizontalOptions="Center" VerticalOptions="Center" />
+                </Border>
+            </Grid>
+
+            <!-- CENTER: Scenic background area (transparent, so background shows through) -->
+            <Grid Grid.Row="1" BackgroundColor="Transparent">
+                <!-- No BoxView, let background show -->
+            </Grid>
+
+            <!-- BOTTOM: Navigation Buttons -->
+            <Grid Grid.Row="2"
+                  BackgroundColor="#111a11"
+                  Padding="16,12,16,24"
+                  ColumnDefinitions="*,*,*"
+                  ColumnSpacing="12">
+
+                <!-- Gold border line at top -->
+                <BoxView Grid.ColumnSpan="3"
+                         HeightRequest="2"
+                         Color="#7a6a3a"
+                         VerticalOptions="Start" />
+
+                <!-- Campaign -->
+                <Border Grid.Column="0"
+                        BackgroundColor="#1e2a1e"
+                        Stroke="#7a6a3a"
+                        StrokeThickness="2"
+                        StrokeShape="RoundRectangle 8"
+                        Padding="0,12"
+                        Margin="0,8,0,0">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnCampaignClicked" />
+                    </Border.GestureRecognizers>
+                    <VerticalStackLayout HorizontalOptions="Center" Spacing="6">
+                        <Label Text="⚔️" FontSize="36" HorizontalOptions="Center" />
+                        <Label Text="Campaign" FontSize="14" FontAttributes="Bold"
+                               TextColor="#e8b830" HorizontalOptions="Center"
+                               FontFamily="OpenSansSemibold" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Heroes -->
+                <Border Grid.Column="1"
+                        BackgroundColor="#1e2a1e"
+                        Stroke="#7a6a3a"
+                        StrokeThickness="2"
+                        StrokeShape="RoundRectangle 8"
+                        Padding="0,12"
+                        Margin="0,8,0,0">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnHeroesClicked" />
+                    </Border.GestureRecognizers>
+                    <VerticalStackLayout HorizontalOptions="Center" Spacing="6">
+                        <Label Text="🛡️" FontSize="36" HorizontalOptions="Center" />
+                        <Label Text="Heroes" FontSize="14" FontAttributes="Bold"
+                               TextColor="#e8b830" HorizontalOptions="Center"
+                               FontFamily="OpenSansSemibold" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Shop -->
+                <Border Grid.Column="2"
+                        BackgroundColor="#1e2a1e"
+                        Stroke="#7a6a3a"
+                        StrokeThickness="2"
+                        StrokeShape="RoundRectangle 8"
+                        Padding="0,12"
+                        Margin="0,8,0,0">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnShopClicked" />
+                    </Border.GestureRecognizers>
+                    <VerticalStackLayout HorizontalOptions="Center" Spacing="6">
+                        <Label Text="🏪" FontSize="36" HorizontalOptions="Center" />
+                        <Label Text="Shop" FontSize="14" FontAttributes="Bold"
+                               TextColor="#e8b830" HorizontalOptions="Center"
+                               FontFamily="OpenSansSemibold" />
+                    </VerticalStackLayout>
+                </Border>
+
+            </Grid>
+        </Grid>
+    </Grid>
 
 </ContentPage>
 
