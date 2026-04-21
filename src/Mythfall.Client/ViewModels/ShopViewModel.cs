@@ -112,9 +112,9 @@ public partial class ShopViewModel : ObservableObject
     private async Task NavigateTo(string route)
     {
         if (route == "HomePage")
-            await Shell.Current.GoToAsync("//HomePage");
-        else if (route == "HeroesListPage")
-            await Shell.Current.GoToAsync("HeroesListPage");
+            await Shell.Current.GoToAsync("//HomePage", animate: false);
+        else
+            await Shell.Current.GoToAsync(route, animate: false);
     }
 }
 

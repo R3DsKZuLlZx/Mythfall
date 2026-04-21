@@ -140,6 +140,9 @@
             <!-- Shop -->
             <Grid Grid.Column="0" WidthRequest="135" HeightRequest="182"
                   HorizontalOptions="Center" VerticalOptions="End">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigateToCommand}" CommandParameter="ShopPage" />
+                </Grid.GestureRecognizers>
                 <Path Data="M 3,16 Q 16,16 16,3 L 119,3 Q 119,16 132,16 L 132,119 Q 119,119 119,132 L 16,132 Q 16,119 3,119 Z"
                       Fill="#2a4a2a" Stroke="#8B6914" StrokeThickness="5"
                       WidthRequest="135" HeightRequest="135"

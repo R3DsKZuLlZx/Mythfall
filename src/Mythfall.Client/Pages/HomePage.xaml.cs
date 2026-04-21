@@ -19,7 +19,7 @@ public partial class HomePage : ContentPage
 
     private async void OnHeroesClicked(object? sender, EventArgs e)
     {
-        await Shell.Current.GoToAsync("HeroesListPage");
+        await Shell.Current.GoToAsync("HeroesListPage", animate: false);
     }
 
     private async void OnShopClicked(object? sender, EventArgs e)

@@ -79,6 +79,8 @@ public partial class HeroesListViewModel : ObservableObject
     private async Task NavigateTo(string route)
     {
         if (route == "HomePage")
-            await Shell.Current.GoToAsync("//HomePage");
+            await Shell.Current.GoToAsync("//HomePage", animate: false);
+        else
+            await Shell.Current.GoToAsync(route, animate: false);
     }
 }
