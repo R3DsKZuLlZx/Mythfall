@@ -13,8 +13,7 @@ public partial class HomePage : ContentPage
 
     private async void OnCampaignClicked(object? sender, EventArgs e)
     {
-        // TODO: Navigate to Campaign page
-        await DisplayAlertAsync("Campaign", "Campaign coming soon!", "OK");
+        await Shell.Current.GoToAsync("CampaignMapPage", animate: false);
     }
 
     private async void OnHeroesClicked(object? sender, EventArgs e)

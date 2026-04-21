@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Mythfall.Client.ViewModels"
+             xmlns:models="clr-namespace:Mythfall.Client.Models"
+             x:Class="Mythfall.Client.Pages.TeamSelectPage"
+             x:DataType="vm:TeamSelectViewModel"
+             BackgroundColor="#1a2a1a"
+             Title="Select Team"
+             Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="Auto,Auto,Auto,*,Auto" Padding="16">
+
+        <!-- Back + Title -->
+        <Grid Grid.Row="0" ColumnDefinitions="Auto,*" Margin="0,0,0,8">
+            <Border Grid.Column="0" BackgroundColor="#2a4a2a" Stroke="#8B6914" StrokeThickness="2"
+                    StrokeShape="RoundRectangle 8" Padding="10,4">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoBackCommand}" />
+                </Border.GestureRecognizers>
+                <Label Text="← Back" FontSize="14" TextColor="#e8d8a0" FontFamily="OpenSansSemibold" />
+            </Border>
+            <Label Grid.Column="1" Text="{Binding StageName}" FontSize="18" FontAttributes="Bold"
+                   TextColor="#e8b830" HorizontalOptions="Center" VerticalOptions="Center"
+                   FontFamily="OpenSansSemibold" />
+        </Grid>
+
+        <!-- Enemy preview -->
+        <VerticalStackLayout Grid.Row="1" Spacing="4" Margin="0,0,0,8">
+            <Label Text="Enemy Team" FontSize="14" FontAttributes="Bold"
+                   TextColor="#ee5555" FontFamily="OpenSansSemibold" />
+            <CollectionView ItemsSource="{Binding EnemyPreview}" HeightRequest="70">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Horizontal" ItemSpacing="8" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:CombatHero">
+                        <Border BackgroundColor="#3a2a2a" Stroke="{Binding RankColor}"
+                                StrokeThickness="2" StrokeShape="RoundRectangle 8"
+                                Padding="6" WidthRequest="60">
+                            <VerticalStackLayout Spacing="2" HorizontalOptions="Center">
+                                <Image Source="{Binding IconImage}" WidthRequest="30" HeightRequest="30"
+                                       HorizontalOptions="Center" />
+                                <Label Text="{Binding Name}" FontSize="9" TextColor="#e8d8a0"
+                                       HorizontalOptions="Center" LineBreakMode="TailTruncation"
+                                       FontFamily="OpenSansSemibold" />
+                                <Label Text="{Binding Level, StringFormat='Lv.{0}'}" FontSize="9"
+                                       TextColor="{Binding RankColor}" HorizontalOptions="Center"
+                                       FontFamily="OpenSansSemibold" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+
+        <!-- Selection header -->
+        <Label Grid.Row="2" FontSize="14" FontAttributes="Bold"
+               TextColor="#88cc88" FontFamily="OpenSansSemibold" Margin="0,0,0,4"
+               Text="{Binding SelectedCount, StringFormat='Your Team ({0}/5) — tap to select'}" />
+
+        <!-- Hero selection grid -->
+        <CollectionView Grid.Row="3" ItemsSource="{Binding AvailableHeroes}">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical" Span="3"
+                                 HorizontalItemSpacing="8" VerticalItemSpacing="8" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:SelectableHero">
+                    <Border BackgroundColor="#2a4a2a"
+                            Stroke="{Binding BorderColor}"
+                            StrokeThickness="3" StrokeShape="RoundRectangle 10"
+                            Padding="6" HeightRequest="110">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:TeamSelectViewModel}}, Path=ToggleHeroCommand}"
+                                CommandParameter="{Binding .}" />
+                        </Border.GestureRecognizers>
+                        <VerticalStackLayout HorizontalOptions="Center" Spacing="2" VerticalOptions="Center">
+                            <Image Source="{Binding Hero.IconImage}" WidthRequest="40" HeightRequest="40"
+                                   HorizontalOptions="Center" />
+                            <Label Text="{Binding Hero.Name}" FontSize="11" FontAttributes="Bold"
+                                   TextColor="#e8d8a0" HorizontalOptions="Center"
+                                   HorizontalTextAlignment="Center" FontFamily="OpenSansSemibold" />
+                            <Label FontSize="10" TextColor="{Binding Hero.RankColor}"
+                                   HorizontalOptions="Center" FontFamily="OpenSansSemibold">
+                                <Label.Text>
+                                    <MultiBinding StringFormat="{}{0} Lv.{1}">
+                                        <Binding Path="Hero.Rank" />
+                                        <Binding Path="Hero.Level" />
+                                    </MultiBinding>
+                                </Label.Text>
+                            </Label>
+                            <!-- Selected indicator -->
+                            <Label Text="✅" FontSize="12" HorizontalOptions="Center"
+                                   IsVisible="{Binding IsSelected}" />
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- Start battle button -->
+        <Border Grid.Row="4" BackgroundColor="#3a3a3a" Stroke="#8B6914" StrokeThickness="3"
+                StrokeShape="RoundRectangle 12" Padding="16,10" Margin="0,8,0,0"
+                HorizontalOptions="Center">
+            <Border.Triggers>
+                <DataTrigger TargetType="Border" Binding="{Binding CanStart}" Value="True">
+                    <Setter Property="BackgroundColor" Value="#3a6a2a" />
+                </DataTrigger>
+            </Border.Triggers>
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding StartBattleCommand}" />
+            </Border.GestureRecognizers>
+            <Label Text="⚔️ Start Battle" FontSize="18" FontAttributes="Bold"
+                   TextColor="#e8b830" FontFamily="OpenSansSemibold" />
+        </Border>
+    </Grid>
+</ContentPage>
+

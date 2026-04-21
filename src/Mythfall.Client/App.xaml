@@ -13,6 +13,8 @@
             <converters:BoolToHighlightConverter x:Key="BoolToHighlightConverter" />
             <converters:InvertedBoolConverter x:Key="InvertedBoolConverter" />
             <converters:BoolToSpinButtonConverter x:Key="BoolToSpinButtonConverter" />
+            <converters:HpBarWidthConverter x:Key="HpBarWidthConverter" />
+            <converters:DefeatedToOpacityConverter x:Key="DefeatedToOpacityConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

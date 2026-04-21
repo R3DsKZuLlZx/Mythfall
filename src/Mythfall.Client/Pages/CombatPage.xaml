@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Mythfall.Client.ViewModels"
+             xmlns:models="clr-namespace:Mythfall.Client.Models"
+             x:Class="Mythfall.Client.Pages.CombatPage"
+             x:DataType="vm:CombatViewModel"
+             BackgroundColor="#1a1a1a"
+             Title="Combat"
+             Shell.NavBarIsVisible="False">
+
+    <Grid>
+        <!-- Main combat layout -->
+        <Grid RowDefinitions="Auto,Auto,Auto,*,Auto" Padding="12">
+
+            <!-- Stage title -->
+            <Label Grid.Row="0" Text="{Binding StageName}" FontSize="16" FontAttributes="Bold"
+                   TextColor="#e8b830" HorizontalOptions="Center" Margin="0,8,0,8"
+                   FontFamily="OpenSansSemibold" />
+
+            <!-- Enemy team row -->
+            <VerticalStackLayout Grid.Row="1" Spacing="4">
+                <Label Text="Enemy" FontSize="12" TextColor="#ee5555" FontFamily="OpenSansSemibold" />
+                <CollectionView ItemsSource="{Binding EnemyTeam}" HeightRequest="90">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal" ItemSpacing="6" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:CombatHero">
+                            <Border BackgroundColor="#3a2a2a" StrokeThickness="2"
+                                    Stroke="{Binding RankColor}"
+                                    StrokeShape="RoundRectangle 8" Padding="4"
+                                    WidthRequest="65" Opacity="{Binding IsDefeated, Converter={StaticResource DefeatedToOpacityConverter}}">
+                                <VerticalStackLayout Spacing="2" HorizontalOptions="Center">
+                                    <Image Source="{Binding IconImage}" WidthRequest="28" HeightRequest="28"
+                                           HorizontalOptions="Center" />
+                                    <Label Text="{Binding Name}" FontSize="8" TextColor="#e8d8a0"
+                                           HorizontalOptions="Center" LineBreakMode="TailTruncation"
+                                           FontFamily="OpenSansSemibold" />
+                                    <!-- HP bar -->
+                                    <Grid WidthRequest="50" HeightRequest="6" BackgroundColor="#333333">
+                                        <BoxView BackgroundColor="#ee3333" HorizontalOptions="Start"
+                                                 WidthRequest="{Binding HpPercent, Converter={StaticResource HpBarWidthConverter}}"
+                                                 HeightRequest="6" />
+                                    </Grid>
+                                    <Label Text="{Binding LastDamageText}" FontSize="10"
+                                           TextColor="#ff4444" HorizontalOptions="Center"
+                                           FontFamily="OpenSansSemibold" />
+                                </VerticalStackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
+            <!-- Player team row -->
+            <VerticalStackLayout Grid.Row="2" Spacing="4" Margin="0,8,0,0">
+                <Label Text="Your Team" FontSize="12" TextColor="#88cc88" FontFamily="OpenSansSemibold" />
+                <CollectionView ItemsSource="{Binding PlayerTeam}" HeightRequest="90">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal" ItemSpacing="6" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:CombatHero">
+                            <Border BackgroundColor="#2a3a2a" StrokeThickness="2"
+                                    Stroke="{Binding RankColor}"
+                                    StrokeShape="RoundRectangle 8" Padding="4"
+                                    WidthRequest="65" Opacity="{Binding IsDefeated, Converter={StaticResource DefeatedToOpacityConverter}}">
+                                <VerticalStackLayout Spacing="2" HorizontalOptions="Center">
+                                    <Image Source="{Binding IconImage}" WidthRequest="28" HeightRequest="28"
+                                           HorizontalOptions="Center" />
+                                    <Label Text="{Binding Name}" FontSize="8" TextColor="#e8d8a0"
+                                           HorizontalOptions="Center" LineBreakMode="TailTruncation"
+                                           FontFamily="OpenSansSemibold" />
+                                    <!-- HP bar -->
+                                    <Grid WidthRequest="50" HeightRequest="6" BackgroundColor="#333333">
+                                        <BoxView BackgroundColor="#44cc44" HorizontalOptions="Start"
+                                                 WidthRequest="{Binding HpPercent, Converter={StaticResource HpBarWidthConverter}}"
+                                                 HeightRequest="6" />
+                                    </Grid>
+                                    <Label Text="{Binding LastDamageText}" FontSize="10"
+                                           TextColor="#ff4444" HorizontalOptions="Center"
+                                           FontFamily="OpenSansSemibold" />
+                                </VerticalStackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
+            <!-- Combat log -->
+            <Border Grid.Row="3" BackgroundColor="#111111" Stroke="#333333" StrokeThickness="1"
+                    StrokeShape="RoundRectangle 8" Padding="8" Margin="0,8,0,0">
+                <CollectionView ItemsSource="{Binding CombatLog}" ItemsUpdatingScrollMode="KeepLastItemInView">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:CombatLogEntry">
+                            <Label Text="{Binding Text}" FontSize="11"
+                                   TextColor="{Binding TextColor}" FontFamily="OpenSansRegular"
+                                   Margin="0,1" />
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Border>
+
+            <!-- Bottom: Back -->
+            <HorizontalStackLayout Grid.Row="4" Spacing="16" HorizontalOptions="Center" Margin="0,8,0,0">
+                <Border BackgroundColor="#4a2a2a" Stroke="#8B6914" StrokeThickness="2"
+                        StrokeShape="RoundRectangle 8" Padding="14,8"
+                        IsVisible="{Binding IsFightRunning, Converter={StaticResource InvertedBoolConverter}}">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoBackCommand}" />
+                    </Border.GestureRecognizers>
+                    <Label Text="← Retreat" FontSize="14" FontAttributes="Bold"
+                           TextColor="#e8d8a0" FontFamily="OpenSansSemibold" />
+                </Border>
+            </HorizontalStackLayout>
+        </Grid>
+
+        <!-- Result overlay -->
+        <Grid IsVisible="{Binding IsFightOver}" BackgroundColor="#CC000000">
+            <Border BackgroundColor="#1a2a1a" Stroke="#8B6914" StrokeThickness="3"
+                    StrokeShape="RoundRectangle 16" Padding="24"
+                    VerticalOptions="Center" HorizontalOptions="Center"
+                    MaximumWidthRequest="320">
+                <VerticalStackLayout Spacing="12" HorizontalOptions="Center">
+                    <Label Text="{Binding ResultTitle}" FontSize="24" FontAttributes="Bold"
+                           TextColor="#e8b830" HorizontalOptions="Center" FontFamily="OpenSansSemibold" />
+                    <Label Text="{Binding ResultMessage}" FontSize="14"
+                           TextColor="#e8d8a0" HorizontalOptions="Center" FontFamily="OpenSansRegular" />
+
+                    <!-- Rewards -->
+                    <HorizontalStackLayout Spacing="14" HorizontalOptions="Center"
+                                           IsVisible="{Binding PlayerWon}">
+                        <HorizontalStackLayout Spacing="4">
+                            <Image Source="icon_gold_coin.png" WidthRequest="22" HeightRequest="22" VerticalOptions="Center" />
+                            <Label Text="{Binding GoldReward, StringFormat='+{0}'}" FontSize="14"
+                                   TextColor="#e8d8a0" FontAttributes="Bold" FontFamily="OpenSansSemibold" VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout Spacing="4">
+                            <Image Source="icon_blue_rock.png" WidthRequest="22" HeightRequest="22" VerticalOptions="Center" />
+                            <Label Text="{Binding ExpReward, StringFormat='+{0}'}" FontSize="14"
+                                   TextColor="#88ccee" FontAttributes="Bold" FontFamily="OpenSansSemibold" VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout Spacing="4" IsVisible="{Binding SpecialExpReward}">
+                            <Image Source="icon_pink_rock.png" WidthRequest="22" HeightRequest="22" VerticalOptions="Center" />
+                            <Label Text="{Binding SpecialExpReward, StringFormat='+{0}'}" FontSize="14"
+                                   TextColor="#ee88cc" FontAttributes="Bold" FontFamily="OpenSansSemibold" VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                    </HorizontalStackLayout>
+
+                    <!-- Buttons -->
+                    <HorizontalStackLayout Spacing="12" HorizontalOptions="Center" Margin="0,8,0,0">
+                        <Border BackgroundColor="#2a4a2a" Stroke="#8B6914" StrokeThickness="2"
+                                StrokeShape="RoundRectangle 8" Padding="14,8">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ReturnToMapCommand}" />
+                            </Border.GestureRecognizers>
+                            <Label Text="🗺️ Map" FontSize="14" FontAttributes="Bold"
+                                   TextColor="#e8d8a0" FontFamily="OpenSansSemibold" />
+                        </Border>
+                        <Border BackgroundColor="#6a3a2a" Stroke="#e8b830" StrokeThickness="2"
+                                StrokeShape="RoundRectangle 8" Padding="14,8"
+                                IsVisible="{Binding PlayerWon, Converter={StaticResource InvertedBoolConverter}}">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding RetryCommand}" />
+                            </Border.GestureRecognizers>
+                            <Label Text="🔄 Retry" FontSize="14" FontAttributes="Bold"
+                                   TextColor="#e8b830" FontFamily="OpenSansSemibold" />
+                        </Border>
+                        <Border BackgroundColor="#3a6a2a" Stroke="#e8b830" StrokeThickness="2"
+                                StrokeShape="RoundRectangle 8" Padding="14,8"
+                                IsVisible="{Binding HasNextStage}">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding NextStageCommand}" />
+                            </Border.GestureRecognizers>
+                            <Label Text="Next Stage →" FontSize="14" FontAttributes="Bold"
+                                   TextColor="#e8b830" FontFamily="OpenSansSemibold" />
+                        </Border>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
+    </Grid>
+</ContentPage>
+

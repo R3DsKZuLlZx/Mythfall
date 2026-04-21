@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Mythfall.Client.ViewModels"
+             xmlns:models="clr-namespace:Mythfall.Client.Models"
+             x:Class="Mythfall.Client.Pages.CampaignMapPage"
+             x:DataType="vm:CampaignMapViewModel"
+             BackgroundColor="#1a2a1a"
+             Title="Campaign"
+             Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="Auto,*,Auto" Padding="0">
+
+        <!-- Top bar -->
+        <Grid Grid.Row="0" Padding="16,16,16,8" ColumnDefinitions="Auto,*">
+            <Border Grid.Column="0" BackgroundColor="#2a4a2a" Stroke="#8B6914" StrokeThickness="2"
+                    StrokeShape="RoundRectangle 8" Padding="10,4">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoBackCommand}" />
+                </Border.GestureRecognizers>
+                <Label Text="← Back" FontSize="14" TextColor="#e8d8a0" FontFamily="OpenSansSemibold" />
+            </Border>
+            <Label Grid.Column="1" Text="Campaign" FontSize="22" FontAttributes="Bold"
+                   TextColor="#e8b830" HorizontalOptions="Center" VerticalOptions="Center"
+                   FontFamily="OpenSansSemibold" />
+        </Grid>
+
+        <!-- Stage map - scrollable vertically -->
+        <ScrollView Grid.Row="1" Orientation="Vertical" Padding="16,0">
+            <VerticalStackLayout Spacing="0">
+                <CollectionView ItemsSource="{Binding Stages}" SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:CampaignStage">
+                            <VerticalStackLayout Spacing="0">
+                                <!-- Connector line above (not for first stage) -->
+                                <BoxView HeightRequest="30" WidthRequest="3"
+                                         HorizontalOptions="Center"
+                                         Color="{Binding IsCompleted, Converter={StaticResource BoolToHighlightConverter}}" />
+
+                                <!-- Stage node -->
+                                <Border BackgroundColor="{Binding IsUnlocked, Converter={StaticResource BoolToHighlightConverter}}"
+                                        Stroke="#8B6914" StrokeThickness="2"
+                                        StrokeShape="RoundRectangle 12"
+                                        Padding="12,8" HorizontalOptions="Center"
+                                        MinimumWidthRequest="200">
+                                    <Border.Triggers>
+                                        <DataTrigger TargetType="Border" Binding="{Binding IsCompleted}" Value="True">
+                                            <Setter Property="BackgroundColor" Value="#2a5a2a" />
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Border" Binding="{Binding IsUnlocked}" Value="True">
+                                            <Setter Property="BackgroundColor" Value="#3a4a3a" />
+                                        </DataTrigger>
+                                    </Border.Triggers>
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CampaignMapViewModel}}, Path=SelectStageCommand}"
+                                            CommandParameter="{Binding .}" />
+                                    </Border.GestureRecognizers>
+                                    <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
+                                        <!-- Stage number circle -->
+                                        <Border Grid.Column="0" BackgroundColor="#1a2a1a"
+                                                Stroke="#e8b830" StrokeThickness="2"
+                                                StrokeShape="RoundRectangle 20"
+                                                WidthRequest="40" HeightRequest="40">
+                                            <Label Text="{Binding StageNumber}" FontSize="16" FontAttributes="Bold"
+                                                   TextColor="#e8b830" HorizontalOptions="Center" VerticalOptions="Center"
+                                                   FontFamily="OpenSansSemibold" />
+                                        </Border>
+                                        <!-- Stage name -->
+                                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
+                                            <Label Text="{Binding Name}" FontSize="15" FontAttributes="Bold"
+                                                   TextColor="#e8d8a0" FontFamily="OpenSansSemibold" />
+                                            <Label FontSize="11" FontFamily="OpenSansRegular">
+                                                <Label.Triggers>
+                                                    <DataTrigger TargetType="Label" Binding="{Binding IsCompleted}" Value="True">
+                                                        <Setter Property="Text" Value="✅ Completed" />
+                                                        <Setter Property="TextColor" Value="#88cc88" />
+                                                    </DataTrigger>
+                                                    <DataTrigger TargetType="Label" Binding="{Binding IsUnlocked}" Value="True">
+                                                        <Setter Property="Text" Value="Available" />
+                                                        <Setter Property="TextColor" Value="#e8b830" />
+                                                    </DataTrigger>
+                                                </Label.Triggers>
+                                            </Label>
+                                        </VerticalStackLayout>
+                                        <!-- Enemy count -->
+                                        <Label Grid.Column="2" FontSize="12" TextColor="#88aa88"
+                                               VerticalOptions="Center" FontFamily="OpenSansRegular"
+                                               Text="{Binding EnemyTeam.Count, StringFormat='👹 x{0}'}" />
+                                    </Grid>
+                                </Border>
+                            </VerticalStackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Resources bar -->
+        <HorizontalStackLayout Grid.Row="2" Spacing="16" HorizontalOptions="Center" Padding="16,8,16,16">
+            <HorizontalStackLayout Spacing="4">
+                <Image Source="icon_gold_coin.png" WidthRequest="24" HeightRequest="24" VerticalOptions="Center" />
+                <Label Text="{Binding Resources.Gold}" FontSize="14"
+                       TextColor="#e8d8a0" FontFamily="OpenSansSemibold" VerticalOptions="Center" />
+            </HorizontalStackLayout>
+            <HorizontalStackLayout Spacing="4">
+                <Image Source="icon_blue_rock.png" WidthRequest="24" HeightRequest="24" VerticalOptions="Center" />
+                <Label Text="{Binding Resources.Experience}" FontSize="14"
+                       TextColor="#88ccee" FontFamily="OpenSansSemibold" VerticalOptions="Center" />
+            </HorizontalStackLayout>
+            <HorizontalStackLayout Spacing="4">
+                <Image Source="icon_pink_rock.png" WidthRequest="24" HeightRequest="24" VerticalOptions="Center" />
+                <Label Text="{Binding Resources.SpecialExperience}" FontSize="14"
+                       TextColor="#ee88cc" FontFamily="OpenSansSemibold" VerticalOptions="Center" />
+            </HorizontalStackLayout>
+        </HorizontalStackLayout>
+    </Grid>
+</ContentPage>
+
