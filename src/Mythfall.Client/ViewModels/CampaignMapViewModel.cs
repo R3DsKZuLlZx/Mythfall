@@ -31,7 +31,7 @@ public partial class CampaignMapViewModel : ObservableObject
     [RelayCommand]
     private async Task SelectStage(CampaignStage stage)
     {
-        if (!stage.IsUnlocked) return;
+        if (!stage.IsUnlocked || stage.IsCompleted) return;
 
         var parameters = new Dictionary<string, object>
         {

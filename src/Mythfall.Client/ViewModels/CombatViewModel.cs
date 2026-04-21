@@ -164,7 +164,8 @@ public partial class CombatViewModel : ObservableObject
                 _heroService.Resources.Experience += ExpReward;
             }
 
-            HasNextStage = _campaignService.GetStage(StageNumber + 1) is not null;
+            var next = _campaignService.GetStage(StageNumber + 1);
+            HasNextStage = next is not null && !next.IsCompleted;
             ResultTitle = "⚔️ Victory!";
             ResultMessage = "Your heroes have triumphed!";
         }
