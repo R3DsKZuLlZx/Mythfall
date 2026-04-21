@@ -24,6 +24,7 @@ public static class MauiProgram
         // ViewModels
         builder.Services.AddTransient<HeroesListViewModel>();
         builder.Services.AddTransient<HeroDetailViewModel>();
+        builder.Services.AddTransient<HomeViewModel>();
 
         // Pages
         builder.Services.AddTransient<HeroesListPage>();
