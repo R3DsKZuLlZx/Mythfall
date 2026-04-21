@@ -24,7 +24,6 @@ public partial class HomePage : ContentPage
 
     private async void OnShopClicked(object? sender, EventArgs e)
     {
-        // TODO: Navigate to Shop page
-        await DisplayAlertAsync("Shop", "Shop coming soon!", "OK");
+        await Shell.Current.GoToAsync("ShopPage");
     }
 }

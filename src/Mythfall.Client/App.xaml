@@ -11,6 +11,8 @@
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <converters:BoolToHighlightConverter x:Key="BoolToHighlightConverter" />
+            <converters:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+            <converters:BoolToSpinButtonConverter x:Key="BoolToSpinButtonConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

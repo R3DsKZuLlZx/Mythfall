@@ -25,10 +25,12 @@ public static class MauiProgram
         builder.Services.AddTransient<HeroesListViewModel>();
         builder.Services.AddTransient<HeroDetailViewModel>();
         builder.Services.AddTransient<HomeViewModel>();
+        builder.Services.AddTransient<ShopViewModel>();
 
         // Pages
         builder.Services.AddTransient<HeroesListPage>();
         builder.Services.AddTransient<HeroDetailPage>();
+        builder.Services.AddTransient<ShopPage>();
 
 #if DEBUG
         builder.Logging.AddDebug();

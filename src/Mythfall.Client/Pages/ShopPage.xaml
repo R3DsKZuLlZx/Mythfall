@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Mythfall.Client.ViewModels"
+             x:Class="Mythfall.Client.Pages.ShopPage"
+             x:DataType="vm:ShopViewModel"
+             BackgroundColor="#1a2a1a"
+             Title="Shop"
+             Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="Auto,*,Auto" Padding="0">
+
+        <!-- TOP: Resource Bar -->
+        <Grid Grid.Row="0"
+              Padding="16,24,16,12"
+              ColumnDefinitions="*,*,*">
+            <HorizontalStackLayout Grid.Column="0" Spacing="8" HorizontalOptions="Center" VerticalOptions="Center">
+                <Image Source="icon_gold_coin.png" WidthRequest="48" HeightRequest="48" VerticalOptions="Center" />
+                <Label Text="{Binding Resources.Gold}" FontSize="18" FontAttributes="Bold"
+                       TextColor="#e8d8a0" FontFamily="OpenSansSemibold" VerticalOptions="Center" />
+            </HorizontalStackLayout>
+            <HorizontalStackLayout Grid.Column="1" Spacing="8" HorizontalOptions="Center" VerticalOptions="Center">
+                <Image Source="icon_blue_rock.png" WidthRequest="48" HeightRequest="48" VerticalOptions="Center" />
+                <Label Text="{Binding Resources.Experience}" FontSize="18" FontAttributes="Bold"
+                       TextColor="#88ccee" FontFamily="OpenSansSemibold" VerticalOptions="Center" />
+            </HorizontalStackLayout>
+            <HorizontalStackLayout Grid.Column="2" Spacing="8" HorizontalOptions="Center" VerticalOptions="Center">
+                <Image Source="icon_pink_rock.png" WidthRequest="48" HeightRequest="48" VerticalOptions="Center" />
+                <Label Text="{Binding Resources.SpecialExperience}" FontSize="18" FontAttributes="Bold"
+                       TextColor="#ee88cc" FontFamily="OpenSansSemibold" VerticalOptions="Center" />
+            </HorizontalStackLayout>
+        </Grid>
+
+        <!-- CENTER: Spin Area -->
+        <VerticalStackLayout Grid.Row="1" Spacing="20"
+                             VerticalOptions="Center" HorizontalOptions="Center"
+                             Padding="24">
+
+            <!-- Title -->
+            <Label Text="Hero Summon" FontSize="32" FontAttributes="Bold"
+                   TextColor="#e8b830" FontFamily="OpenSansSemibold"
+                   HorizontalOptions="Center" />
+
+            <Label Text="Spend 100 gold to summon a random hero!"
+                   FontSize="14" TextColor="#88aa88" FontFamily="OpenSansRegular"
+                   HorizontalOptions="Center" HorizontalTextAlignment="Center" />
+
+            <!-- Result Display -->
+            <Border BackgroundColor="#2a4a2a" Stroke="#8B6914" StrokeThickness="3"
+                    StrokeShape="RoundRectangle 16" Padding="24"
+                    WidthRequest="260" HeightRequest="280"
+                    HorizontalOptions="Center">
+
+                <!-- Empty state (before spin) -->
+                <Grid>
+                    <VerticalStackLayout IsVisible="{Binding HasResult, Converter={StaticResource InvertedBoolConverter}}"
+                                         VerticalOptions="Center" HorizontalOptions="Center" Spacing="12">
+                        <Label Text="?" FontSize="80" TextColor="#4a6a4a"
+                               HorizontalOptions="Center" FontFamily="OpenSansSemibold" />
+                        <Label Text="Tap Summon to reveal" FontSize="14" TextColor="#5a7a5a"
+                               HorizontalOptions="Center" FontFamily="OpenSansRegular" />
+                    </VerticalStackLayout>
+
+                    <!-- Result state -->
+                    <VerticalStackLayout IsVisible="{Binding HasResult}"
+                                         VerticalOptions="Center" HorizontalOptions="Center" Spacing="8">
+                        <VerticalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding DismissResultCommand}" />
+                        </VerticalStackLayout.GestureRecognizers>
+
+                        <Image Source="{Binding LastWon.FactionIcon}" WidthRequest="24" HeightRequest="24"
+                               HorizontalOptions="Center" />
+                        <Image Source="{Binding LastWon.IconImage}" WidthRequest="96" HeightRequest="96"
+                               HorizontalOptions="Center" />
+                        <Label Text="{Binding LastWon.Name}" FontSize="20" FontAttributes="Bold"
+                               TextColor="#e8d8a0" FontFamily="OpenSansSemibold"
+                               HorizontalOptions="Center" HorizontalTextAlignment="Center" />
+                        <Label Text="{Binding LastWon.Rank}" FontSize="16"
+                               TextColor="{Binding LastWon.RankColor}" FontFamily="OpenSansSemibold"
+                               HorizontalOptions="Center" />
+                        <Label Text="{Binding Message}" FontSize="13"
+                               TextColor="#e8b830" FontFamily="OpenSansSemibold"
+                               HorizontalOptions="Center" HorizontalTextAlignment="Center" />
+                    </VerticalStackLayout>
+                </Grid>
+            </Border>
+
+            <!-- Spinning indicator -->
+            <ActivityIndicator IsRunning="{Binding IsSpinning}" IsVisible="{Binding IsSpinning}"
+                               Color="#e8b830" HorizontalOptions="Center" />
+
+            <!-- Spin Button -->
+            <Border BackgroundColor="{Binding CanSpin, Converter={StaticResource BoolToSpinButtonConverter}}"
+                    Stroke="#8B6914" StrokeThickness="3"
+                    StrokeShape="RoundRectangle 12" Padding="20,12"
+                    HorizontalOptions="Center">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SpinCommand}" />
+                </Border.GestureRecognizers>
+                <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
+                    <Image Source="icon_gold_coin.png" WidthRequest="28" HeightRequest="28" VerticalOptions="Center" />
+                    <Label Text="Summon — 100" FontSize="20" FontAttributes="Bold"
+                           TextColor="#e8d8a0" FontFamily="OpenSansSemibold" VerticalOptions="Center" />
+                </HorizontalStackLayout>
+            </Border>
+
+            <!-- Not enough gold message -->
+            <Label Text="Not enough gold!"
+                   IsVisible="{Binding CanSpin, Converter={StaticResource InvertedBoolConverter}}"
+                   FontSize="13" TextColor="#cc4444" FontFamily="OpenSansRegular"
+                   HorizontalOptions="Center" />
+        </VerticalStackLayout>
+
+        <!-- Bottom Nav -->
+        <Grid Grid.Row="2"
+              Padding="16,0,16,24"
+              ColumnDefinitions="*,*,*"
+              ColumnSpacing="16">
+
+            <!-- Shop (selected) -->
+            <Grid Grid.Column="0" WidthRequest="135" HeightRequest="182"
+                  HorizontalOptions="Center" VerticalOptions="End">
+                <Path Data="M 3,16 Q 16,16 16,3 L 119,3 Q 119,16 132,16 L 132,119 Q 119,119 119,132 L 16,132 Q 16,119 3,119 Z"
+                      Fill="#3a5a3a" Stroke="#e8b830" StrokeThickness="5"
+                      WidthRequest="135" HeightRequest="135"
+                      HorizontalOptions="Center" VerticalOptions="End"
+                      Aspect="None" />
+                <Label Text="Shop" FontSize="20" FontAttributes="Bold"
+                       TextColor="#ffe066" HorizontalOptions="Center"
+                       VerticalOptions="End" Margin="0,0,0,13"
+                       FontFamily="OpenSansSemibold" />
+                <Image Source="icon_shop.png"
+                       WidthRequest="125" HeightRequest="125"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Start"
+                       Margin="0,0,0,0" />
+            </Grid>
+
+            <!-- Campaign -->
+            <Grid Grid.Column="1" WidthRequest="135" HeightRequest="182"
+                  HorizontalOptions="Center" VerticalOptions="End">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigateToCommand}" CommandParameter="HomePage" />
+                </Grid.GestureRecognizers>
+                <Path Data="M 3,16 Q 16,16 16,3 L 119,3 Q 119,16 132,16 L 132,119 Q 119,119 119,132 L 16,132 Q 16,119 3,119 Z"
+                      Fill="#2a4a2a" Stroke="#8B6914" StrokeThickness="5"
+                      WidthRequest="135" HeightRequest="135"
+                      HorizontalOptions="Center" VerticalOptions="End"
+                      Aspect="None" />
+                <Label Text="Campaign" FontSize="20" FontAttributes="Bold"
+                       TextColor="#e8b830" HorizontalOptions="Center"
+                       VerticalOptions="End" Margin="0,0,0,13"
+                       FontFamily="OpenSansSemibold" />
+                <Image Source="icon_campaign.png"
+                       WidthRequest="125" HeightRequest="125"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Start"
+                       Margin="0,0,0,0" />
+            </Grid>
+
+            <!-- Heroes -->
+            <Grid Grid.Column="2" WidthRequest="135" HeightRequest="182"
+                  HorizontalOptions="Center" VerticalOptions="End">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigateToCommand}" CommandParameter="HeroesListPage" />
+                </Grid.GestureRecognizers>
+                <Path Data="M 3,16 Q 16,16 16,3 L 119,3 Q 119,16 132,16 L 132,119 Q 119,119 119,132 L 16,132 Q 16,119 3,119 Z"
+                      Fill="#2a4a2a" Stroke="#8B6914" StrokeThickness="5"
+                      WidthRequest="135" HeightRequest="135"
+                      HorizontalOptions="Center" VerticalOptions="End"
+                      Aspect="None" />
+                <Label Text="Heroes" FontSize="20" FontAttributes="Bold"
+                       TextColor="#e8b830" HorizontalOptions="Center"
+                       VerticalOptions="End" Margin="0,0,0,13"
+                       FontFamily="OpenSansSemibold" />
+                <Image Source="icon_heroes.png"
+                       WidthRequest="125" HeightRequest="125"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Start"
+                       Margin="0,0,0,0" />
+            </Grid>
+        </Grid>
+
+    </Grid>
+</ContentPage>
+
