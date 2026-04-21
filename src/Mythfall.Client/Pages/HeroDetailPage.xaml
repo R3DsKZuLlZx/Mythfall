@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Mythfall.Client.ViewModels"
+             x:Class="Mythfall.Client.Pages.HeroDetailPage"
+             x:DataType="vm:HeroDetailViewModel"
+             BackgroundColor="#1a2a1a"
+             Title="Hero Detail"
+             Shell.NavBarIsVisible="False">
+
+    <ScrollView>
+        <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto" Padding="16">
+
+            <!-- Back Button -->
+            <Border Grid.Row="0" BackgroundColor="#2a4a2a" Stroke="#8B6914" StrokeThickness="2"
+                    StrokeShape="RoundRectangle 8" Padding="12,6"
+                    HorizontalOptions="Start" Margin="0,0,0,12">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoBackCommand}" />
+                </Border.GestureRecognizers>
+                <Label Text="← Back" FontSize="16" TextColor="#e8d8a0" FontFamily="OpenSansSemibold" />
+            </Border>
+
+            <!-- Hero Image & Name -->
+            <VerticalStackLayout Grid.Row="1" HorizontalOptions="Center" Spacing="8" Margin="0,0,0,16">
+                <Border BackgroundColor="#223322" Stroke="{Binding Hero.RankColor}"
+                        StrokeThickness="3" StrokeShape="RoundRectangle 16"
+                        Padding="16" HorizontalOptions="Center">
+                    <Image Source="{Binding Hero.FullImage}"
+                           WidthRequest="200" HeightRequest="200"
+                           HorizontalOptions="Center" />
+                </Border>
+                <Label Text="{Binding Hero.Name}" FontSize="28" FontAttributes="Bold"
+                       TextColor="#e8b830" HorizontalOptions="Center"
+                       FontFamily="OpenSansSemibold" />
+                <HorizontalStackLayout HorizontalOptions="Center" Spacing="8">
+                    <Label Text="{Binding Hero.Rank}" FontSize="16"
+                           TextColor="{Binding Hero.RankColor}" FontFamily="OpenSansSemibold" />
+                    <Label Text="{Binding Hero.Level, StringFormat='Level {0}'}" FontSize="16"
+                           TextColor="#e8d8a0" FontFamily="OpenSansSemibold" />
+                    <Label Text="{Binding Hero.MaxLevel, StringFormat='/ {0}'}" FontSize="14"
+                           TextColor="#88aa88" FontFamily="OpenSansRegular" VerticalOptions="Center" />
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+
+            <!-- Stats -->
+            <Border Grid.Row="2" BackgroundColor="#2a4a2a" Stroke="#8B6914" StrokeThickness="2"
+                    StrokeShape="RoundRectangle 12" Padding="20" Margin="0,0,0,16">
+                <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="*,Auto" RowSpacing="14">
+                    <!-- HP -->
+                    <Label Grid.Row="0" Grid.Column="0" Text="❤️  HP" FontSize="18"
+                           TextColor="#e8d8a0" FontFamily="OpenSansSemibold" />
+                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding Hero.HP}" FontSize="18"
+                           TextColor="#ee5555" FontAttributes="Bold" FontFamily="OpenSansSemibold" />
+                    <!-- Attack -->
+                    <Label Grid.Row="1" Grid.Column="0" Text="⚔️  Attack" FontSize="18"
+                           TextColor="#e8d8a0" FontFamily="OpenSansSemibold" />
+                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding Hero.Attack}" FontSize="18"
+                           TextColor="#ee8833" FontAttributes="Bold" FontFamily="OpenSansSemibold" />
+                    <!-- Defence -->
+                    <Label Grid.Row="2" Grid.Column="0" Text="🛡️  Defence" FontSize="18"
+                           TextColor="#e8d8a0" FontFamily="OpenSansSemibold" />
+                    <Label Grid.Row="2" Grid.Column="1" Text="{Binding Hero.Defence}" FontSize="18"
+                           TextColor="#5588ee" FontAttributes="Bold" FontFamily="OpenSansSemibold" />
+                </Grid>
+            </Border>
+
+            <!-- Level Up Cost -->
+            <Border Grid.Row="3" BackgroundColor="#2a4a2a" Stroke="#8B6914" StrokeThickness="2"
+                    StrokeShape="RoundRectangle 12" Padding="20" Margin="0,0,0,16">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Level Up Cost" FontSize="20" FontAttributes="Bold"
+                           TextColor="#e8b830" HorizontalOptions="Center"
+                           FontFamily="OpenSansSemibold" />
+
+                    <HorizontalStackLayout Spacing="20" HorizontalOptions="Center">
+                        <!-- Gold Cost -->
+                        <HorizontalStackLayout Spacing="6">
+                            <Image Source="icon_gold_coin.png" WidthRequest="28" HeightRequest="28"
+                                   VerticalOptions="Center" />
+                            <Label Text="{Binding Hero.GoldCostToLevel}" FontSize="16"
+                                   TextColor="#e8d8a0" FontAttributes="Bold"
+                                   FontFamily="OpenSansSemibold" VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+
+                        <!-- Exp Cost -->
+                        <HorizontalStackLayout Spacing="6">
+                            <Image Source="icon_blue_rock.png" WidthRequest="28" HeightRequest="28"
+                                   VerticalOptions="Center" />
+                            <Label Text="{Binding Hero.ExpCostToLevel}" FontSize="16"
+                                   TextColor="#88ccee" FontAttributes="Bold"
+                                   FontFamily="OpenSansSemibold" VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+
+                        <!-- Special Exp Cost (visible every 5 levels) -->
+                        <HorizontalStackLayout Spacing="6" IsVisible="{Binding Hero.NeedsSpecialExp}">
+                            <Image Source="icon_pink_rock.png" WidthRequest="28" HeightRequest="28"
+                                   VerticalOptions="Center" />
+                            <Label Text="1" FontSize="16"
+                                   TextColor="#ee88cc" FontAttributes="Bold"
+                                   FontFamily="OpenSansSemibold" VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                    </HorizontalStackLayout>
+
+                    <!-- Current Resources -->
+                    <HorizontalStackLayout Spacing="16" HorizontalOptions="Center" Margin="0,4,0,0">
+                        <Label Text="{Binding Resources.Gold, StringFormat='You have: {0}'}"
+                               FontSize="12" TextColor="#88aa88" FontFamily="OpenSansRegular" />
+                        <Label Text="{Binding Resources.Experience, StringFormat='Exp: {0}'}"
+                               FontSize="12" TextColor="#88aa88" FontFamily="OpenSansRegular" />
+                        <Label Text="{Binding Resources.SpecialExperience, StringFormat='Special: {0}'}"
+                               FontSize="12" TextColor="#88aa88" FontFamily="OpenSansRegular" />
+                    </HorizontalStackLayout>
+
+                    <!-- Message -->
+                    <Label Text="{Binding LevelUpMessage}" FontSize="14"
+                           TextColor="#ee5555" HorizontalOptions="Center"
+                           FontFamily="OpenSansRegular" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Level Up Button -->
+            <Border Grid.Row="4" BackgroundColor="{Binding CanLevelUp, Converter={x:Null}}"
+                    Stroke="#8B6914" StrokeThickness="3"
+                    StrokeShape="RoundRectangle 12" Padding="16"
+                    HorizontalOptions="Center" Margin="0,0,0,20">
+                <Border.Triggers>
+                    <DataTrigger TargetType="Border" Binding="{Binding CanLevelUp}" Value="True">
+                        <Setter Property="BackgroundColor" Value="#3a6a2a" />
+                    </DataTrigger>
+                    <DataTrigger TargetType="Border" Binding="{Binding CanLevelUp}" Value="False">
+                        <Setter Property="BackgroundColor" Value="#3a3a3a" />
+                    </DataTrigger>
+                </Border.Triggers>
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding LevelUpCommand}" />
+                </Border.GestureRecognizers>
+                <Label Text="⬆️  Level Up" FontSize="22" FontAttributes="Bold"
+                       TextColor="#e8b830" HorizontalOptions="Center"
+                       FontFamily="OpenSansSemibold" />
+            </Border>
+
+        </Grid>
+    </ScrollView>
+</ContentPage>
+

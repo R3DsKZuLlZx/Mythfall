@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Mythfall.Client.ViewModels"
+             xmlns:models="clr-namespace:Mythfall.Client.Models"
+             x:Class="Mythfall.Client.Pages.HeroesListPage"
+             x:DataType="vm:HeroesListViewModel"
+             BackgroundColor="#1a2a1a"
+             Title="Heroes"
+             Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="Auto,*" Padding="0">
+
+        <!-- Header -->
+        <Grid Grid.Row="0" Padding="16,16,16,8" ColumnDefinitions="Auto,*">
+            <Border Grid.Column="0" BackgroundColor="#2a4a2a" Stroke="#8B6914" StrokeThickness="2"
+                    StrokeShape="RoundRectangle 8" Padding="12,6" VerticalOptions="Center">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoBackCommand}" />
+                </Border.GestureRecognizers>
+                <Label Text="← Back" FontSize="16" TextColor="#e8d8a0" FontFamily="OpenSansSemibold" />
+            </Border>
+            <Label Grid.Column="1" Text="Heroes" FontSize="28" FontAttributes="Bold"
+                   TextColor="#e8b830" FontFamily="OpenSansSemibold"
+                   HorizontalOptions="Center" VerticalOptions="Center" />
+        </Grid>
+
+        <!-- Hero Grid -->
+        <CollectionView Grid.Row="1" ItemsSource="{Binding Heroes}" Margin="12,0">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical" Span="3"
+                                 HorizontalItemSpacing="12" VerticalItemSpacing="12" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Hero">
+                    <Border BackgroundColor="#2a4a2a" Stroke="{Binding RankColor}"
+                            StrokeThickness="3" StrokeShape="RoundRectangle 10"
+                            Padding="8" HeightRequest="140">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HeroesListViewModel}}, Path=SelectHeroCommand}"
+                                CommandParameter="{Binding .}" />
+                        </Border.GestureRecognizers>
+                        <VerticalStackLayout HorizontalOptions="Center" Spacing="4"
+                                             VerticalOptions="Center">
+                            <Image Source="{Binding IconImage}"
+                                   WidthRequest="64" HeightRequest="64"
+                                   HorizontalOptions="Center" />
+                            <Label Text="{Binding Name}" FontSize="12" FontAttributes="Bold"
+                                   TextColor="#e8d8a0" HorizontalOptions="Center"
+                                   HorizontalTextAlignment="Center"
+                                   FontFamily="OpenSansSemibold" />
+                            <Label FontSize="11" TextColor="{Binding RankColor}"
+                                   HorizontalOptions="Center" FontFamily="OpenSansSemibold">
+                                <Label.Text>
+                                    <MultiBinding StringFormat="{}{0} Lv.{1}">
+                                        <Binding Path="Rank" />
+                                        <Binding Path="Level" />
+                                    </MultiBinding>
+                                </Label.Text>
+                            </Label>
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </Grid>
+</ContentPage>
+

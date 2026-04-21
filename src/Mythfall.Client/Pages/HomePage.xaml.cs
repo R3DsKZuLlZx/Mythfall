@@ -15,8 +15,7 @@ public partial class HomePage : ContentPage
 
     private async void OnHeroesClicked(object? sender, EventArgs e)
     {
-        // TODO: Navigate to Heroes page
-        await DisplayAlertAsync("Heroes", "Heroes roster coming soon!", "OK");
+        await Shell.Current.GoToAsync("HeroesListPage");
     }
 
     private async void OnShopClicked(object? sender, EventArgs e)
