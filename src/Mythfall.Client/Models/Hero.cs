@@ -80,5 +80,6 @@ public partial class Hero : ObservableObject
         OnPropertyChanged(nameof(SpecialExpCostToLevel));
         OnPropertyChanged(nameof(NeedsSpecialExp));
         OnPropertyChanged(nameof(MaxLevel));
+        OnPropertyChanged(nameof(RankColor));
     }
 }

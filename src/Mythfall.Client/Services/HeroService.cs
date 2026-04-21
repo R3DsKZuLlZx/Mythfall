@@ -17,6 +17,11 @@ public class HeroService
 
     public void AddHero(Hero hero) => _heroes.Add(hero);
 
+    public void RemoveHero(Hero hero) => _heroes.Remove(hero);
+
+    public List<Hero> GetDuplicatesForRankUp(Hero hero) =>
+        _heroes.Where(h => h != hero && h.Id == hero.Id && h.Rank == hero.Rank).ToList();
+
     private static List<Hero> CreateInitialHeroes() =>
     [
         new Hero
