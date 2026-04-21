@@ -9,20 +9,33 @@
              Title="Heroes"
              Shell.NavBarIsVisible="False">
 
-    <Grid RowDefinitions="Auto,*" Padding="0">
+    <Grid RowDefinitions="Auto,*,Auto,Auto" Padding="0">
 
-        <!-- Header -->
-        <Grid Grid.Row="0" Padding="16,16,16,8" ColumnDefinitions="Auto,*">
-            <Border Grid.Column="0" BackgroundColor="#2a4a2a" Stroke="#8B6914" StrokeThickness="2"
-                    StrokeShape="RoundRectangle 8" Padding="12,6" VerticalOptions="Center">
-                <Border.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding GoBackCommand}" />
-                </Border.GestureRecognizers>
-                <Label Text="← Back" FontSize="16" TextColor="#e8d8a0" FontFamily="OpenSansSemibold" />
-            </Border>
-            <Label Grid.Column="1" Text="Heroes" FontSize="28" FontAttributes="Bold"
-                   TextColor="#e8b830" FontFamily="OpenSansSemibold"
-                   HorizontalOptions="Center" VerticalOptions="Center" />
+        <!-- TOP: Resource Bar -->
+        <Grid Grid.Row="0"
+              Padding="16,24,16,12"
+              ColumnDefinitions="*,*,*">
+
+            <!-- Gold -->
+            <HorizontalStackLayout Grid.Column="0" Spacing="8" HorizontalOptions="Center" VerticalOptions="Center">
+                <Image Source="icon_gold_coin.png" WidthRequest="48" HeightRequest="48" VerticalOptions="Center" />
+                <Label Text="{Binding Resources.Gold}" FontSize="18" FontAttributes="Bold"
+                       TextColor="#e8d8a0" FontFamily="OpenSansSemibold" VerticalOptions="Center" />
+            </HorizontalStackLayout>
+
+            <!-- Experience -->
+            <HorizontalStackLayout Grid.Column="1" Spacing="8" HorizontalOptions="Center" VerticalOptions="Center">
+                <Image Source="icon_blue_rock.png" WidthRequest="48" HeightRequest="48" VerticalOptions="Center" />
+                <Label Text="{Binding Resources.Experience}" FontSize="18" FontAttributes="Bold"
+                       TextColor="#88ccee" FontFamily="OpenSansSemibold" VerticalOptions="Center" />
+            </HorizontalStackLayout>
+
+            <!-- Special Experience -->
+            <HorizontalStackLayout Grid.Column="2" Spacing="8" HorizontalOptions="Center" VerticalOptions="Center">
+                <Image Source="icon_pink_rock.png" WidthRequest="48" HeightRequest="48" VerticalOptions="Center" />
+                <Label Text="{Binding Resources.SpecialExperience}" FontSize="18" FontAttributes="Bold"
+                       TextColor="#ee88cc" FontFamily="OpenSansSemibold" VerticalOptions="Center" />
+            </HorizontalStackLayout>
         </Grid>
 
         <!-- Hero Grid -->
@@ -43,8 +56,11 @@
                         </Border.GestureRecognizers>
                         <VerticalStackLayout HorizontalOptions="Center" Spacing="4"
                                              VerticalOptions="Center">
+                            <!-- Faction badge -->
+                            <Image Source="{Binding FactionIcon}" WidthRequest="18" HeightRequest="18"
+                                   HorizontalOptions="Center" />
                             <Image Source="{Binding IconImage}"
-                                   WidthRequest="64" HeightRequest="64"
+                                   WidthRequest="54" HeightRequest="54"
                                    HorizontalOptions="Center" />
                             <Label Text="{Binding Name}" FontSize="12" FontAttributes="Bold"
                                    TextColor="#e8d8a0" HorizontalOptions="Center"
@@ -64,6 +80,123 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
+
+        <!-- Faction Filters -->
+        <HorizontalStackLayout Grid.Row="2" Padding="16,8" Spacing="12" HorizontalOptions="Center">
+            <!-- All -->
+            <Border BackgroundColor="{Binding IsAllSelected, Converter={StaticResource BoolToHighlightConverter}}"
+                    Stroke="Transparent" StrokeShape="RoundRectangle 10" Padding="8" HeightRequest="48" WidthRequest="48">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding FilterByFactionCommand}" CommandParameter="" />
+                </Border.GestureRecognizers>
+                <Label Text="All" FontSize="13" FontAttributes="Bold"
+                       TextColor="#e8d8a0" HorizontalOptions="Center" VerticalOptions="Center"
+                       FontFamily="OpenSansSemibold" />
+            </Border>
+            <!-- Order -->
+            <Border BackgroundColor="{Binding IsOrderSelected, Converter={StaticResource BoolToHighlightConverter}}"
+                    Stroke="Transparent" StrokeShape="RoundRectangle 10" Padding="4" HeightRequest="48" WidthRequest="48">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding FilterByFactionCommand}" CommandParameter="Order" />
+                </Border.GestureRecognizers>
+                <Image Source="icon_order.png" WidthRequest="36" HeightRequest="36"
+                       HorizontalOptions="Center" VerticalOptions="Center" />
+            </Border>
+            <!-- Chaos -->
+            <Border BackgroundColor="{Binding IsChaosSelected, Converter={StaticResource BoolToHighlightConverter}}"
+                    Stroke="Transparent" StrokeShape="RoundRectangle 10" Padding="4" HeightRequest="48" WidthRequest="48">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding FilterByFactionCommand}" CommandParameter="Chaos" />
+                </Border.GestureRecognizers>
+                <Image Source="icon_chaos.png" WidthRequest="36" HeightRequest="36"
+                       HorizontalOptions="Center" VerticalOptions="Center" />
+            </Border>
+            <!-- Arcane -->
+            <Border BackgroundColor="{Binding IsArcaneSelected, Converter={StaticResource BoolToHighlightConverter}}"
+                    Stroke="Transparent" StrokeShape="RoundRectangle 10" Padding="4" HeightRequest="48" WidthRequest="48">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding FilterByFactionCommand}" CommandParameter="Arcane" />
+                </Border.GestureRecognizers>
+                <Image Source="icon_arcane.png" WidthRequest="36" HeightRequest="36"
+                       HorizontalOptions="Center" VerticalOptions="Center" />
+            </Border>
+            <!-- Fury -->
+            <Border BackgroundColor="{Binding IsFurySelected, Converter={StaticResource BoolToHighlightConverter}}"
+                    Stroke="Transparent" StrokeShape="RoundRectangle 10" Padding="4" HeightRequest="48" WidthRequest="48">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding FilterByFactionCommand}" CommandParameter="Fury" />
+                </Border.GestureRecognizers>
+                <Image Source="icon_fury.png" WidthRequest="36" HeightRequest="36"
+                       HorizontalOptions="Center" VerticalOptions="Center" />
+            </Border>
+        </HorizontalStackLayout>
+
+        <!-- Bottom Nav -->
+        <Grid Grid.Row="3"
+              Padding="16,0,16,24"
+              ColumnDefinitions="*,*,*"
+              ColumnSpacing="16">
+
+            <!-- Shop -->
+            <Grid Grid.Column="0" WidthRequest="135" HeightRequest="182"
+                  HorizontalOptions="Center" VerticalOptions="End">
+                <Path Data="M 3,16 Q 16,16 16,3 L 119,3 Q 119,16 132,16 L 132,119 Q 119,119 119,132 L 16,132 Q 16,119 3,119 Z"
+                      Fill="#2a4a2a" Stroke="#8B6914" StrokeThickness="5"
+                      WidthRequest="135" HeightRequest="135"
+                      HorizontalOptions="Center" VerticalOptions="End"
+                      Aspect="None" />
+                <Label Text="Shop" FontSize="20" FontAttributes="Bold"
+                       TextColor="#e8b830" HorizontalOptions="Center"
+                       VerticalOptions="End" Margin="0,0,0,13"
+                       FontFamily="OpenSansSemibold" />
+                <Image Source="icon_shop.png"
+                       WidthRequest="125" HeightRequest="125"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Start"
+                       Margin="0,0,0,0" />
+            </Grid>
+
+            <!-- Campaign -->
+            <Grid Grid.Column="1" WidthRequest="135" HeightRequest="182"
+                  HorizontalOptions="Center" VerticalOptions="End">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigateToCommand}" CommandParameter="HomePage" />
+                </Grid.GestureRecognizers>
+                <Path Data="M 3,16 Q 16,16 16,3 L 119,3 Q 119,16 132,16 L 132,119 Q 119,119 119,132 L 16,132 Q 16,119 3,119 Z"
+                      Fill="#2a4a2a" Stroke="#8B6914" StrokeThickness="5"
+                      WidthRequest="135" HeightRequest="135"
+                      HorizontalOptions="Center" VerticalOptions="End"
+                      Aspect="None" />
+                <Label Text="Campaign" FontSize="20" FontAttributes="Bold"
+                       TextColor="#e8b830" HorizontalOptions="Center"
+                       VerticalOptions="End" Margin="0,0,0,13"
+                       FontFamily="OpenSansSemibold" />
+                <Image Source="icon_campaign.png"
+                       WidthRequest="125" HeightRequest="125"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Start"
+                       Margin="0,0,0,0" />
+            </Grid>
+
+            <!-- Heroes (selected) -->
+            <Grid Grid.Column="2" WidthRequest="135" HeightRequest="182"
+                  HorizontalOptions="Center" VerticalOptions="End">
+                <Path Data="M 3,16 Q 16,16 16,3 L 119,3 Q 119,16 132,16 L 132,119 Q 119,119 119,132 L 16,132 Q 16,119 3,119 Z"
+                      Fill="#3a5a3a" Stroke="#e8b830" StrokeThickness="5"
+                      WidthRequest="135" HeightRequest="135"
+                      HorizontalOptions="Center" VerticalOptions="End"
+                      Aspect="None" />
+                <Label Text="Heroes" FontSize="20" FontAttributes="Bold"
+                       TextColor="#ffe066" HorizontalOptions="Center"
+                       VerticalOptions="End" Margin="0,0,0,13"
+                       FontFamily="OpenSansSemibold" />
+                <Image Source="icon_heroes.png"
+                       WidthRequest="125" HeightRequest="125"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Start"
+                       Margin="0,0,0,0" />
+            </Grid>
+        </Grid>
 
     </Grid>
 </ContentPage>

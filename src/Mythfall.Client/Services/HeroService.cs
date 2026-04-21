@@ -16,6 +16,7 @@ public class HeroService
             FullImage = "dotnet_bot.png",
             Rank = HeroRank.Rare,
             Level = 1,
+            Faction = Faction.Chaos,
             BaseHp = 120,
             BaseAttack = 25,
             BaseDefence = 15
@@ -28,6 +29,7 @@ public class HeroService
             FullImage = "dotnet_bot.png",
             Rank = HeroRank.Elite,
             Level = 5,
+            Faction = Faction.Arcane,
             BaseHp = 90,
             BaseAttack = 30,
             BaseDefence = 8
@@ -40,6 +42,7 @@ public class HeroService
             FullImage = "dotnet_bot.png",
             Rank = HeroRank.Epic,
             Level = 12,
+            Faction = Faction.Arcane,
             BaseHp = 80,
             BaseAttack = 40,
             BaseDefence = 6
@@ -52,6 +55,7 @@ public class HeroService
             FullImage = "dotnet_bot.png",
             Rank = HeroRank.Rare,
             Level = 3,
+            Faction = Faction.Order,
             BaseHp = 150,
             BaseAttack = 15,
             BaseDefence = 25
@@ -64,6 +68,7 @@ public class HeroService
             FullImage = "dotnet_bot.png",
             Rank = HeroRank.Legendary,
             Level = 20,
+            Faction = Faction.Fury,
             BaseHp = 95,
             BaseAttack = 35,
             BaseDefence = 12
@@ -76,10 +81,10 @@ public class HeroService
             FullImage = "dotnet_bot.png",
             Rank = HeroRank.Elite,
             Level = 8,
+            Faction = Faction.Arcane,
             BaseHp = 110,
             BaseAttack = 18,
             BaseDefence = 20
         }
     ];
 }
-

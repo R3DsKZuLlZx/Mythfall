@@ -8,6 +8,7 @@ public partial class Hero : ObservableObject
     public string Name { get; set; } = string.Empty;
     public string IconImage { get; set; } = "dotnet_bot.png";
     public string FullImage { get; set; } = "dotnet_bot.png";
+    public Faction Faction { get; set; } = Faction.Order;
 
     [ObservableProperty]
     private HeroRank rank = HeroRank.Rare;
@@ -51,6 +52,24 @@ public partial class Hero : ObservableObject
         _ => "#4488cc"
     };
 
+    public string FactionIcon => Faction switch
+    {
+        Faction.Order => "icon_order.png",
+        Faction.Chaos => "icon_chaos.png",
+        Faction.Arcane => "icon_arcane.png",
+        Faction.Fury => "icon_fury.png",
+        _ => "icon_order.png"
+    };
+
+    public string FactionColor => Faction switch
+    {
+        Faction.Order => "#4488ee",
+        Faction.Chaos => "#ee4422",
+        Faction.Arcane => "#aa44ee",
+        Faction.Fury => "#ee8822",
+        _ => "#4488ee"
+    };
+
     public void RefreshStats()
     {
         OnPropertyChanged(nameof(HP));
@@ -63,4 +82,3 @@ public partial class Hero : ObservableObject
         OnPropertyChanged(nameof(MaxLevel));
     }
 }
-
