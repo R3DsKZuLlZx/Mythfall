@@ -106,7 +106,7 @@
 
             <!-- Not enough gold message -->
             <Label Text="Not enough gold!"
-                   IsVisible="{Binding CanSpin, Converter={StaticResource InvertedBoolConverter}}"
+                   IsVisible="{Binding ShowNotEnoughGold}"
                    FontSize="13" TextColor="#cc4444" FontFamily="OpenSansRegular"
                    HorizontalOptions="Center" />
         </VerticalStackLayout>

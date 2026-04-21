@@ -24,6 +24,6 @@ public partial class HomePage : ContentPage
 
     private async void OnShopClicked(object? sender, EventArgs e)
     {
-        await Shell.Current.GoToAsync("ShopPage");
+        await Shell.Current.GoToAsync("ShopPage", animate: false);
     }
 }

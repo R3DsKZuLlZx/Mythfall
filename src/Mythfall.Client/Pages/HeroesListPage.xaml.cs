@@ -9,5 +9,12 @@ public partial class HeroesListPage : ContentPage
         InitializeComponent();
         BindingContext = viewModel;
     }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        if (BindingContext is HeroesListViewModel vm)
+            vm.Refresh();
+    }
 }
 

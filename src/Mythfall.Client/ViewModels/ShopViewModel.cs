@@ -28,6 +28,7 @@ public partial class ShopViewModel : ObservableObject
     private string message = string.Empty;
 
     public bool CanSpin => !IsSpinning && Resources.Gold >= SpinCost;
+    public bool ShowNotEnoughGold => !IsSpinning && Resources.Gold < SpinCost;
 
     public ShopViewModel(HeroService heroService)
     {
@@ -35,7 +36,11 @@ public partial class ShopViewModel : ObservableObject
         _spinPool = _heroService.GetSpinPool();
         _totalWeight = _spinPool.Sum(h => h.Weight);
 
-        Resources.PropertyChanged += (_, _) => OnPropertyChanged(nameof(CanSpin));
+        Resources.PropertyChanged += (_, _) =>
+        {
+            OnPropertyChanged(nameof(CanSpin));
+            OnPropertyChanged(nameof(ShowNotEnoughGold));
+        };
     }
 
     [RelayCommand]
@@ -52,6 +57,7 @@ public partial class ShopViewModel : ObservableObject
         LastWon = null;
         Message = string.Empty;
         OnPropertyChanged(nameof(CanSpin));
+        OnPropertyChanged(nameof(ShowNotEnoughGold));
 
         // Small delay for anticipation
         await Task.Delay(600);
@@ -76,10 +82,14 @@ public partial class ShopViewModel : ObservableObject
 
         selected ??= _spinPool[^1]; // fallback
 
+        // Add won hero to the player's roster
+        _heroService.AddHero(selected.ToHero());
+
         LastWon = selected;
         HasResult = true;
         IsSpinning = false;
         OnPropertyChanged(nameof(CanSpin));
+        OnPropertyChanged(nameof(ShowNotEnoughGold));
 
         Message = selected.Rank switch
         {

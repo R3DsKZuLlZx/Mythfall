@@ -9,7 +9,6 @@ namespace Mythfall.Client.ViewModels;
 public partial class HeroesListViewModel : ObservableObject
 {
     private readonly HeroService _heroService;
-    private readonly List<Hero> _allHeroes;
 
     public ObservableCollection<Hero> Heroes { get; } = [];
 
@@ -27,7 +26,6 @@ public partial class HeroesListViewModel : ObservableObject
     public HeroesListViewModel(HeroService heroService)
     {
         _heroService = heroService;
-        _allHeroes = _heroService.GetHeroes();
         ApplyFilter();
     }
 
@@ -44,13 +42,16 @@ public partial class HeroesListViewModel : ObservableObject
     private void ApplyFilter()
     {
         Heroes.Clear();
+        var allHeroes = _heroService.GetHeroes();
         var filtered = SelectedFaction is null
-            ? _allHeroes
-            : _allHeroes.Where(h => h.Faction == SelectedFaction).ToList();
+            ? allHeroes
+            : allHeroes.Where(h => h.Faction == SelectedFaction).ToList();
 
         foreach (var hero in filtered)
             Heroes.Add(hero);
     }
+
+    public void Refresh() => ApplyFilter();
 
     [RelayCommand]
     private void FilterByFaction(string? factionStr)

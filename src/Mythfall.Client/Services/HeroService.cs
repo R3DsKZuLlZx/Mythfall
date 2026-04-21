@@ -6,7 +6,18 @@ public class HeroService
 {
     public PlayerResources Resources { get; } = new();
 
-    public List<Hero> GetHeroes() =>
+    private readonly List<Hero> _heroes;
+
+    public HeroService()
+    {
+        _heroes = CreateInitialHeroes();
+    }
+
+    public List<Hero> GetHeroes() => _heroes;
+
+    public void AddHero(Hero hero) => _heroes.Add(hero);
+
+    private static List<Hero> CreateInitialHeroes() =>
     [
         new Hero
         {
